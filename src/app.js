@@ -5,6 +5,7 @@ import multer from "multer";
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { fileURLToPath } from "url";
+import cors from 'cors';
 
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/tasks.routes.js";
@@ -13,6 +14,9 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.use(cors({
+    origin: 'http://localhost:5173'
+}));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
