@@ -16,14 +16,14 @@ const imageSchema = new mongoose.Schema({
     size: {
         type: Number
     }
-})
+});
 
 const taskSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
-    date:{
+    date: {
         type: Date,
         default: Date.now
     },
@@ -31,13 +31,17 @@ const taskSchema = new mongoose.Schema({
     tags: {
         type: [String]
     },
-    user: {
+    list: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'List',
         required: true
-    }
+    },
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+      }
 }, {
     timestamps: true
-})
+});
 
 export default mongoose.model('Task', taskSchema);
