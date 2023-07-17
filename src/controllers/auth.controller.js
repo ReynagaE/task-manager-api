@@ -26,9 +26,7 @@ export const register = async (req, res) => {
     
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      domain: 'taskminder-ockw.onrender.com'
+      sameSite: "none"
     });
 
     res.json({
