@@ -15,10 +15,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors({
-    origin: 'taskminder-ockw.onrender.com',
+    origin: 'https://taskminder-ockw.onrender.com',
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+  });
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
