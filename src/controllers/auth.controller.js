@@ -26,6 +26,7 @@ export const register = async (req, res) => {
     
     res.cookie("token", token, {
       httpOnly: true,
+      
       sameSite: "none"
     });
 
@@ -58,8 +59,9 @@ export const login = async (req, res) => {
     });
 
     res.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "none"
+      httpOnly: process.env.NODE_ENV !== "development",
+      
+      sameSite: "none",
     });
 
     res.json({
@@ -77,6 +79,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
+    
     expires: new Date(0),
   });
   return res.sendStatus(200);
