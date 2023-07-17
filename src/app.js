@@ -15,7 +15,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors({
-    origin: 'https://taskminder-ockw.onrender.com'
+    origin: 'https://taskminder-ockw.onrender.com',
+    credentials: true
 }));
 app.use(express.json());
 app.use(morgan("dev"));
