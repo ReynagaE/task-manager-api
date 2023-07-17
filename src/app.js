@@ -16,7 +16,8 @@ const __dirname = path.dirname(__filename);
 
 app.use(cors({
     origin: 'https://taskminder-ockw.onrender.com',
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
 app.use(morgan("dev"));
