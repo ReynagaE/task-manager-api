@@ -19,7 +19,7 @@ app.use(cors({
     origin: 'https://taskminder-ockw.onrender.com',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Set-Cookie'],
 }));
 app.get('/', cors(), (req,res)=> {
     res.send('succes');
