@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { fileURLToPath } from "url";
 import cors from 'cors';
 
+
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/tasks.routes.js";
 
@@ -18,7 +19,7 @@ app.use(cors({
     origin: 'https://taskminder-ockw.onrender.com',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', '*'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
 app.use(morgan("dev"));
