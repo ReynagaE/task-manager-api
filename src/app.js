@@ -14,6 +14,8 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.use(cookieParser());
+
 app.use(cors({
     origin: 'https://taskminder-ockw.onrender.com',
     credentials: true,
@@ -21,7 +23,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cookieParser());
+
 app.use(express.urlencoded({extended: false}));
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public', 'img', 'uploads'),
