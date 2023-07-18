@@ -25,9 +25,10 @@ export const register = async (req, res) => {
     const token = await createAccessToken({id: userSaved._id});
     
     res.cookie("token", token, {
-      httpOnly: process.env.NODE_ENV !== "development",
+      httpOnly: true,
       secure: true,
       sameSite: "none",
+      domain: "https://taskminder-ockw.onrender.com"
     });
 
     res.json({
@@ -59,9 +60,10 @@ export const login = async (req, res) => {
     });
 
     res.cookie("token", token, {
-      httpOnly: process.env.NODE_ENV !== "development",
+      httpOnly: true,
       secure: true,
       sameSite: "none",
+      domain: "https://taskminder-ockw.onrender.com"
     });
 
     res.json({
@@ -81,6 +83,7 @@ export const logout = async (req, res) => {
     httpOnly: true,
     secure: true,
     expires: new Date(0),
+    domain: "https://taskminder-ockw.onrender.com"
   });
   return res.sendStatus(200);
 };
