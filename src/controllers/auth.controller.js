@@ -28,7 +28,7 @@ export const register = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: ".onrender.com"
+      domain: "onrender.com"
     });
 
     res.json({
@@ -63,7 +63,7 @@ export const login = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: ".onrender.com"
+      domain: "onrender.com"
     });
 
     res.json({
@@ -83,7 +83,7 @@ export const logout = async (req, res) => {
     httpOnly: true,
     secure: true,
     expires: new Date(0),
-    domain: ".onrender.com"
+    domain: "onrender.com"
   });
   return res.sendStatus(200);
 };
