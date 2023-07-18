@@ -21,6 +21,9 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+app.get('/', cors(), (req,res)=> {
+    res.send('succes');
+})
 app.use(express.json());
 app.use(morgan("dev"));
 
