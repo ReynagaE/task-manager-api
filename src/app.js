@@ -22,7 +22,11 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://taskminder-ockw.onrender.com',
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
