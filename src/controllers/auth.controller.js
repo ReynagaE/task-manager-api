@@ -65,3 +65,41 @@ export const login = async (req, res) => {
   }
 };
 
+export const verifyToken = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    const userFound = await User.findById(decoded.id);
+
+    if (!userFound) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    res.json({
+      id: userFound._id,
+      username: userFound.username,
+      email: userFound.email,
+    });
+  } catch (error) {
+    res.status(401).json({ message: "Unauthorized" });
+  }
+};
+
+export const profile = async (req, res) => {
+  const userFound = await User.findById(req.user.id);
+
+  if (!userFound) {
+    return res.status(400).json({ message: "User not found" });
+  }
+
+  return res.json({
+    id: userFound._id,
+    username: userFound.username,
+    email: userFound.email,
+  });
+};
+
+export const logout = async (req, res) => {
+  // No se necesita realizar ninguna acción especial para el logout sin cookies.
+  res.sendStatus(200);
+};
