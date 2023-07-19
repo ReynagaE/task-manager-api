@@ -108,7 +108,13 @@ export const verifyToken = async (req, res) => {
     if (err) return res.status(401).json({ message: "Unauthorized" })
 
     const userFound = await User.findById(user.id)
-    if (!userFound) return res.status(401).json({ message: "Unauthorized" })
+    if (!userFound) return res.status(401).json({ message: "Unauthorized"})
+
+    res.cookie("token", token, {
+      httpOnly: process.env.NODE_ENV !== "development",
+      secure: true,
+      sameSite: "none",
+    });
 
     return res.json({
       id: userFound._id,
