@@ -24,18 +24,19 @@ export const register = async (req, res) => {
 
     const token = await createAccessToken({id: userSaved._id});
     
-    res.cookie("token", token, {
-      //httpOnly: process.env.NODE_ENV !== "development",
-      secure: true,
-      sameSite: "none"
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: process.env.NODE_ENV !== "development",
+    //   secure: true,
+    //   sameSite: "none"
+    // });
 
     res.json({
       id: userSaved._id,
       username: userSaved.username,
       email: userSaved.email,
       createdAt: userSaved.createdAt,
-      updatedAt: userSaved.updatedAt
+      updatedAt: userSaved.updatedAt,
+      token
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -58,18 +59,19 @@ export const login = async (req, res) => {
       username: userFound.username
     });
 
-    res.cookie("token", token, {
-      //httpOnly: process.env.NODE_ENV !== "development",
-      secure: true,
-      sameSite: "none",
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: process.env.NODE_ENV !== "development",
+    //   secure: true,
+    //   sameSite: "none",
+    // });
 
     res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
       createdAt: userFound.createdAt,
-      updatedAt: userFound.updatedAt
+      updatedAt: userFound.updatedAt,
+      token
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -77,11 +79,12 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.cookie("token", "", {
-    //httpOnly: true,
-    secure: true,
-    expires: new Date(0),
-  });
+  // res.cookie("token", "", {
+  //   //httpOnly: true,
+  //   secure: true,
+  //   expires: new Date(0),
+  // });
+  // return res.sendStatus(200);
   return res.sendStatus(200);
 };
 
