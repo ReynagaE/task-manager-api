@@ -11,27 +11,27 @@ import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/tasks.routes.js";
 
 const app = express();
+app.use(cookieParser());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(cors({
     origin: 'https://taskminder-ockw.onrender.com',
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
+app.use(express.json());
 app.use(morgan("dev"));
 
+app.use(express.urlencoded({extended: false}));
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public', 'img', 'uploads'),
-    filename: (req, file, cb) => {
-        const fileName = uuidv4() + path.extname(file.originalname);
-        cb(null, fileName);
+    filename: (req, file, cb, filename) => {
+        cb(null, uuidv4() + path.extname(file.originalname));
     }
 });
-app.use(multer({ storage }).single('image'));
+app.use(multer({
+    storage: storage
+}).single('image'));
 
 app.use("/api", authRoutes);
 app.use("/api", taskRoutes);
