@@ -62,6 +62,7 @@ export const login = async (req, res) => {
       httpOnly: process.env.NODE_ENV !== "development",
       secure: true,
       sameSite: "none",
+      path: "/"
     });
 
     res.json({
