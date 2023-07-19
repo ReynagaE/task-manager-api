@@ -103,20 +103,24 @@ export const profile = async (req, res) => {
 }
 
 export const verifyToken = async (req, res) => {
-  const {token} = req.cookies
+  const authHeader = req.header("Authorization");
 
-  if (!token) return res.status(401).json({ message: "Unauthorized" })
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  const token = authHeader.split(" ")[1];
 
   jwt.verify(token, TOKEN_SECRET, async (err, user) => {
-    if (err) return res.status(401).json({ message: "Unauthorized" })
+    if (err) return res.status(401).json({ message: "Unauthorized" });
 
-    const userFound = await User.findById(user.id)
-    if (!userFound) return res.status(401).json({ message: "Unauthorized" })
+    const userFound = await User.findById(user.id);
+    if (!userFound) return res.status(401).json({ message: "Unauthorized" });
 
     return res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
     });
-  })
-}
+  });
+};
